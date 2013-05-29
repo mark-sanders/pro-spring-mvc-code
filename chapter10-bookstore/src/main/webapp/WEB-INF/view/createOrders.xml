@@ -10,13 +10,27 @@
 
 	<view-state id="selectCategory" view="selectCategory" model="orderForm">
 		<transition on="next" to="selectBooks" >
-			<evaluate expression="orderController.initializeSelectableBooks(flowScope.orderForm)" result="flowScope.selectableBooks" />
+			<evaluate 
+				expression="orderController.initializeSelectableBooks(flowScope.orderForm)" 
+				result="flowScope.selectableBooks" />
 		</transition>
 		
 		<transition on="cancel" to="end" />
 	</view-state>
 
 	<view-state id="selectBooks" view="selectBooks" model="orderForm">
+		<transition on="add"> 
+			<!-- to="state" not required - just add book and stay in this state-->
+			<evaluate expression="orderController.addBook(flowScope.orderForm)" />
+		</transition>
+		
+		<transition on="reset"> 
+			<!-- to="state" not required - just reset books and stay in this state-->
+			<evaluate expression="orderForm.resetSelectedBooks()" />
+		</transition>
+		
+		<transition on="previous" to="selectCategory" />
+		
 		<transition on="cancel" to="end" />
 	</view-state>
 

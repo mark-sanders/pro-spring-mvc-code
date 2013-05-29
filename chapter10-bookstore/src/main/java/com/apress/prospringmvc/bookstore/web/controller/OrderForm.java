@@ -31,6 +31,17 @@ public class OrderForm implements Serializable {
 		return Collections.unmodifiableMap(selectedBooks);
 	}
 	
+	public void addBook(Book book, int quantityToAdd) {
+		
+		int quantity = 0;
+		
+		if (selectedBooks.containsKey(book)) {
+			quantity = selectedBooks.get(book);
+		}
+		
+		selectedBooks.put(book, quantity + quantityToAdd);
+	}
+	
 	
 	public Long getCategoryId() {
 		return categoryId;
@@ -73,7 +84,7 @@ public class OrderForm implements Serializable {
 	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
-	
+
 	
 	
 }

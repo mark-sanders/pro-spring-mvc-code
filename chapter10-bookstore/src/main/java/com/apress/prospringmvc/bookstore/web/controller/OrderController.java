@@ -46,8 +46,6 @@ public class OrderController {
 	
 	public Map<Long, String> initializeSelectableBooks(OrderForm orderForm) {
 		
-		orderForm.resetSelectedBooks();
-		
 		Category selectedCategory = categoryService.findById(orderForm.getCategoryId());
 		List<Book> booksByCategory = bookstoreService.findBooksByCategory(selectedCategory);
 		
@@ -57,5 +55,10 @@ public class OrderController {
 		}
 		
 		return selectableBooks;
+	}
+	
+	public void addBook(OrderForm orderForm) {
+		Book book = bookstoreService.findBook(orderForm.getBookId());
+		orderForm.addBook(book, orderForm.getQuantity());
 	}
 }
