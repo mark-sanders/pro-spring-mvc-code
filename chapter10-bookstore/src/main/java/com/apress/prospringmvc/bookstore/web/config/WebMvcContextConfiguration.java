@@ -28,14 +28,20 @@ import com.apress.prospringmvc.bookstore.web.interceptor.CommonDataHandlerInterc
  * @author Koen Serneels
  * 
  */
-@Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = { "com.apress.prospringmvc.bookstore.web" })
+@Configuration																	// it's like a XML configuration file but more obtuse 
+@EnableWebMvc 																	// this is the equivalent of <mvc:annotation-driven />
+@ComponentScan("com.apress.prospringmvc.bookstore.web")							// this is the equivalent of 
+																				//	<context:component-scan
+																				//		base-package="com.apress.prospringmvc.bookstore.web" />
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**/*").addResourceLocations("classpath:/META-INF/web-resources/");
+																				// this is the equivalent of 
+																				// 	<resources 
+																				//		mapping="/resources/**/*" 
+																				// 		location="classpath:/META-INF/web-resources/" />
 	}
 
 	// -- Start Locale Support (I18N) --//
@@ -57,6 +63,12 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	 * 
 	 * @return the {@link LocaleResolver}
 	 */
+	
+	// equivalent to:
+	//		<beans:bean 
+	//			id="localeResolver"
+	//			class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+	
 	@Bean
 	public LocaleResolver localeResolver() {
 		return new CookieLocaleResolver();
@@ -77,6 +89,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	// -- End Locale Support (I18N) --//
 
+	// is this really needed?
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
@@ -87,6 +100,16 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		return internalResourceViewResolver;
 	}
 
+	// equivalent to:
+	//
+	//		<beans:bean 
+	//			id="tilesViewResolver"
+	//			class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	//			<beans:property 
+	//				name="viewClass" 
+	//				value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	//		</beans:bean>
+	
 	@Bean
 	public ViewResolver tilesViewResolver() {
 		UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
@@ -95,6 +118,25 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		return urlBasedViewResolver;
 	}
 
+	// equivalent to:
+	//
+	//		<beans:bean
+	//			id="tilesConfigurer"
+	//			class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+	//			<beans:property name="definitions">
+	//				<beans:list>
+	//					<beans:value>/WEB-INF/tiles/tiles-configuration.xml</beans:value>
+	//				</beans:list>
+	//			</beans:property>
+	//		</beans:bean>		
+	//
+	// which I think will simplify to:
+	// 
+	//		<beans:bean
+	//			id="tilesConfigurer"
+	//			class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+	//			p:definitions="/WEB-INF/tiles/tiles-configuration.xml" />
+	
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
 		TilesConfigurer tilesConfigurer = new TilesConfigurer();
@@ -107,6 +149,13 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		return new CommonDataHandlerInterceptor();
 	}
 
+	// equivalent to:
+	//
+	//		<interceptors>
+	//			<beans:bean class="com.apress.prospringmvc.bookstore.web.interceptor.CommonDataHandlerInterceptor" />
+	//			<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang" />
+	//		</interceptors>
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(commonDataHandlerInterceptor());

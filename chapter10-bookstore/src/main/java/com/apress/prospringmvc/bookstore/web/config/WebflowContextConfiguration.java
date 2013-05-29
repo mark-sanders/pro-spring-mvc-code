@@ -23,24 +23,48 @@ import com.apress.prospringmvc.bookstore.web.interceptor.CommonDataHandlerInterc
  * 
  */
 @Configuration
-@ImportResource("classpath:/spring/webflow-config.xml")
+@ImportResource("classpath:/spring/webflow-config.xml")							// this is where that XML configuration gets used 
 public class WebflowContextConfiguration {
 
 	@Autowired
-	private FlowExecutor flowExecutor;
+	private FlowExecutor flowExecutor;											// from webflow-config.xml
+	
 	@Autowired
-	private FlowDefinitionRegistry flowRegistry;
+	private FlowDefinitionRegistry flowRegistry;								// from webflow-config.xml
+	
 	@Autowired
-	private CommonDataHandlerInterceptor commonDataHandlerInterceptor;
+	private CommonDataHandlerInterceptor commonDataHandlerInterceptor;			// from WebMvcContextConfiguration
+	
 	@Autowired
-	private LocaleChangeInterceptor localeChangeInterceptor;
+	private LocaleChangeInterceptor localeChangeInterceptor;					// from WebMvcContextConfiguration
+	
 
+	// equivalent of:
+	//
+	//		<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+	//		<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+	//			<property name="flowExecutor" ref="flowExecutor"/>
+	//		</bean>
+	
 	@Bean
 	public FlowHandlerAdapter flowHandlerAdapter() {
 		FlowHandlerAdapter flowHandlerAdapter = new FlowHandlerAdapter();
 		flowHandlerAdapter.setFlowExecutor(flowExecutor);
 		return flowHandlerAdapter;
 	}
+
+	// equivalent of:
+	//
+	//		<!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking". -->
+	//		<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+	//			<property name="flowRegistry" ref="flowRegistry" />
+	//			<property name="interceptors">
+	//				<list>
+	//					<ref bean="commonDataHandlerInterceptor"/>
+	//					<ref bean="localeChangeInterceptor"/>
+	//				</list>
+	//			</property>
+	//		</bean>
 
 	@Bean
 	public FlowHandlerMapping flowHandlerMapping() {
