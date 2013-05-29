@@ -13,6 +13,8 @@ public class OrderForm implements Serializable {
 	private final Map<Book, Integer> selectedBooks = new HashMap<Book, Integer>();
 	
 	private Long categoryId;
+	
+	private Long bookId;
 
 	private Integer quantity;
 	
@@ -29,6 +31,7 @@ public class OrderForm implements Serializable {
 		return Collections.unmodifiableMap(selectedBooks);
 	}
 	
+	
 	public Long getCategoryId() {
 		return categoryId;
 	}
@@ -36,6 +39,16 @@ public class OrderForm implements Serializable {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
+	
+	
+	public Long getBookId() {
+		return bookId;
+	}
+	
+	public void setBookId(Long bookId) {
+		this.bookId = bookId;
+	}
+	
 	
 	public Integer getQuantity() {
 		return quantity;
