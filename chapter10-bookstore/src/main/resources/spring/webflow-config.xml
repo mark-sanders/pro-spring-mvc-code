@@ -10,17 +10,15 @@
 	<webflow:flow-executor id="flowExecutor" />
 	
 	<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices">
-		<webflow:flow-location id="createOrders" path="/WEB-INF/view/createOrders/createOrders-flow.xml" />
+		<webflow:flow-location path="/WEB-INF/view/createOrders.xml" /> 
+		<!-- implicit flow id is "createOrders" based on flow name -->
 	</webflow:flow-registry>
 	
 	<webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" development="true" />
 
-	<bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
-		<property name="viewResolvers">
-			<list>
-				<ref bean="tilesViewResolver"/>
-			</list>
-		</property> 
-	</bean>
+	<bean 
+		id="mvcViewFactoryCreator" 
+		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"
+		p:viewResolvers-ref="tilesViewResolver" />
 
 </beans>
