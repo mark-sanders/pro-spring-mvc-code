@@ -43,7 +43,10 @@ public class InitialDataSetup {
     private Role roleAuthor = new Role("ROLE_AUTHOR");
 
     private Account johnDoe;
-    private Category category;
+
+    private Category categoryIT;
+	private Category categoryJava;
+	private Category categoryWeb;
 
     public InitialDataSetup(TransactionTemplate transactionTemplate) {
         this.transactionTemplate = transactionTemplate;
@@ -98,19 +101,19 @@ public class InitialDataSetup {
 
                 // Create categories
                 {
-                    InitialDataSetup.this.category = new CategoryBuilder() {
+                    InitialDataSetup.this.categoryIT = new CategoryBuilder() {
                         {
                             name("IT");
                         }
                     }.build();
 
-                    new CategoryBuilder() {
+                    InitialDataSetup.this.categoryJava = new CategoryBuilder() {
                         {
                             name("Java");
                         }
                     }.build();
 
-                    new CategoryBuilder() {
+                    InitialDataSetup.this.categoryWeb = new CategoryBuilder() {
                         {
                             name("Web");
                         }
@@ -128,7 +131,7 @@ public class InitialDataSetup {
                             author("Joshua Bloch");
                             year(2008);
                             price("31.20");
-                            category(InitialDataSetup.this.category);
+                            category(InitialDataSetup.this.categoryJava);
                         }
                     }.build();
 
@@ -142,7 +145,7 @@ public class InitialDataSetup {
                             author("Martin Fowler");
                             year(1999);
                             price("41.39");
-                            category(InitialDataSetup.this.category);
+                            category(InitialDataSetup.this.categoryIT);
                         }
                     }.build();
 
@@ -156,7 +159,7 @@ public class InitialDataSetup {
                             author("Robert C. Martin");
                             year(2008);
                             price("33.32");
-                            category(InitialDataSetup.this.category);
+                            category(InitialDataSetup.this.categoryIT);
                         }
                     }.build();
 
@@ -169,7 +172,7 @@ public class InitialDataSetup {
                             author("Robert C. Martin");
                             year(2002);
                             price("54.61");
-                            category(InitialDataSetup.this.category);
+                            category(InitialDataSetup.this.categoryIT);
                         }
                     }.build();
 
@@ -182,7 +185,23 @@ public class InitialDataSetup {
                             author("Jaroslav Tulach");
                             year(2008);
                             price("56.01");
-                            category(InitialDataSetup.this.category);
+                            category(InitialDataSetup.this.categoryIT);
+                        }
+                    }.build();
+
+                    final Book proSpringMVC = new BookBuilder() {
+                        {
+                            title("Pro Spring MVC: With Web Flow");
+                            isbn("9781430241553");
+                            description(
+                            		"Along with detailed analysis of the code and functionality, " +
+                            		"plus the first published coverage of Spring Web Flow 2.x, " +
+                            		"this book includes numerous tips and tricks to help you get " +
+                            		"the most out of Spring MVC, Spring Web Flow, and web development in general.");
+                            author("Marten Deinum et al");
+                            year(2012);
+                            price("99.99");
+                            category(InitialDataSetup.this.categoryWeb);
                         }
                     }.build();
 
@@ -219,6 +238,7 @@ public class InitialDataSetup {
                         {
                             addBook(agileSoftware, 1);
                             addBook(practicalApiDesign, 1);
+                            addBook(proSpringMVC, 5);
                             deliveryDate(new Date());
                             orderDate(new Date());
                             account(InitialDataSetup.this.johnDoe);
