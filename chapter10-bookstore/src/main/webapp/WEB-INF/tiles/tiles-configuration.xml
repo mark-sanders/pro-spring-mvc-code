@@ -11,4 +11,12 @@
         <put-attribute name="content" value="/WEB-INF/view/main.jsp"/>
     </definition>
 
+	<definition name="selectCategory" extends="fullTemplate">
+        <put-attribute name="content" value="/WEB-INF/view/createOrders/selectCategory.jsp"/>
+    </definition>
+	
+	<definition name="selectBooks" extends="fullTemplate">
+        <put-attribute name="content" value="/WEB-INF/view/createOrders/selectBooks.jsp"/>
+    </definition>
+
 </tiles-definitions>

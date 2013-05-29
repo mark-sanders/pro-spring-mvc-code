@@ -2,58 +2,25 @@
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
-	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
            http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd">
 
 	<webflow:flow-executor id="flowExecutor" />
 	
-	<webflow:flow-registry id="flowRegistry">
-		<webflow:flow-location path="/WEB-INF/view/createOrders/createOrders-flow.xml" />
+	<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices">
+		<webflow:flow-location id="createOrders" path="/WEB-INF/view/createOrders/createOrders-flow.xml" />
 	</webflow:flow-registry>
 	
-	<webflow:flow-builder-services
-		id="flowBuilderServices"
-		view-factory-creator="mvcViewFactoryCreator" 
-		development="true" />
-	
-	<bean 
-		id="mvcViewFactoryCreator" 
-		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
-		<property name="viewResolvers">
-			<list><ref bean="tilesViewResolver"/></list>
-		</property>
-	</bean>
-	
-<!-- alternative 1 - util:list
-	<bean 
-		id="mvcViewFactoryCreator" 
-		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"
-		p:viewResolvers-ref="viewResolvers" />
-		
-	<util:list id="viewResolvers">
-		<ref bean="tilesViewResolver" />
-	</util:list>
- -->
+	<webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" development="true" />
 
-<!-- alternative 2 - will Spring coerce a single reference to a list?
-	<bean 
-		id="mvcViewFactoryCreator" 
-		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"
-		p:viewResolvers-ref="tilesViewResolver" />
- -->
-	
-	<!-- 
-		See JavaConfig in com.apress.prospringmvc.bookstore.web.config.WebMvcContextConfiguration
-		which configures:
-		- tilesViewResolver
-		- tilesConfigurer
-		- locale interceptor and common data handler interceptor
-		- resource handlers
-	-->
-	
+	<bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers">
+			<list>
+				<ref bean="tilesViewResolver"/>
+			</list>
+		</property> 
+	</bean>
 
 </beans>
