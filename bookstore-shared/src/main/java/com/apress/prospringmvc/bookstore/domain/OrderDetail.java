@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * An order detail is the link table between {@link Order} and {@link Book} We also store how many books are ordered in
  * the {@link #quantity} field
@@ -66,4 +69,11 @@ public class OrderDetail implements Serializable {
         return BigDecimal.ZERO;
     }
 
+	@Override
+	public String toString() {
+		return book.getTitle() + " x " + quantity;
+	}
+
+    
+    
 }

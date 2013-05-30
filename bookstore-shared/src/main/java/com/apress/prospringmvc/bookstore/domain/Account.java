@@ -120,4 +120,13 @@ public class Account implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", dateOfBirth=" + dateOfBirth + ", emailAddress="
+				+ emailAddress + ", username=" + username + "]";
+	}
+    
+    
 }

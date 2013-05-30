@@ -22,6 +22,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * 
  * @author Marten Deinum
@@ -180,4 +183,18 @@ public class Order implements Serializable {
             }
         }
     }
+
+	@Override
+	public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
+        builder.append("totalOrderPrice", this.totalOrderPrice);
+        builder.append("account", this.account);
+        builder.append("orderDate", this.orderDate);
+        builder.append("deliveryDate", this.deliveryDate);
+        builder.append("orderDetails", this.orderDetails);
+        return builder.build();
+	}
+    
+    
+    
 }
