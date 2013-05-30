@@ -19,4 +19,7 @@
         <put-attribute name="content" value="/WEB-INF/view/createOrders/selectBooks.jsp"/>
     </definition>
 
+	<definition name="selectDeliveryOptions" extends="fullTemplate">
+        <put-attribute name="content" value="/WEB-INF/view/createOrders/selectDeliveryOptions.jsp"/>
+    </definition>
 </tiles-definitions>
